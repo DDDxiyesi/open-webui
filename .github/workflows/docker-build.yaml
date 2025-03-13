@@ -195,7 +195,10 @@ jobs:
           build-args: |
             BUILD_HASH=${{ github.sha }}
             USE_CUDA=true
-
+            
+      - name: Create directory for tar files
+        run: mkdir -p /tmp/digests
+    
       - name: Save Docker image to tar file
         run: |
           docker save -o /tmp/digests/${{ env.FULL_IMAGE_NAME }}.tar ${{ env.FULL_IMAGE_NAME }}:${{ steps.meta.outputs.version }}
