@@ -187,6 +187,7 @@ jobs:
         id: build
         with:
           context: .
+          tags: ${{ steps.meta.outputs.tags }}
           push: true
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
