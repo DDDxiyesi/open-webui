@@ -15,13 +15,14 @@
 	export let show = false;
 	export let edit = false;
 
-	let enableFullContent = false;
+	let enableFullContent = true;
 	$: isPDF =
 		item?.meta?.content_type === 'application/pdf' ||
 		(item?.name && item?.name.toLowerCase().endsWith('.pdf'));
 
 	onMount(() => {
 		console.log(item);
+		item.context = 'full';
 		if (item?.context === 'full') {
 			enableFullContent = true;
 		}
