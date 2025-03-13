@@ -190,7 +190,7 @@ jobs:
           push: true
           platforms: ${{ matrix.platform }}
           labels: ${{ steps.meta.outputs.labels }}
-          outputs: type=image,name=${{ env.FULL_IMAGE_NAME }},push-by-digest=true,name-canonical=true,push=true
+          outputs: type=image,name=${{ env.FULL_IMAGE_NAME }},push-by-digest=true,name-canonical=true,load=true,push=true
           cache-from: type=registry,ref=${{ steps.cache-meta.outputs.tags }}
           cache-to: type=registry,ref=${{ steps.cache-meta.outputs.tags }},mode=max
           build-args: |
@@ -205,7 +205,7 @@ jobs:
 
       - name: Save Docker image to tar file
         run: |
-          docker save -o /tmp/digests/${{ env.SAFE_IMAGE_NAME }}-${{ steps.meta.outputs.version }}.tar ${{ env.FULL_IMAGE_NAME }}:${{ steps.meta.outputs.version }}
+          docker save -o /tmp/digests/${{ env.SAFE_IMAGE_NAME }}-cuda.tar ${{ env.FULL_IMAGE_NAME }}:cuda
 
       - name: Upload tar file
         uses: actions/upload-artifact@v4
