@@ -210,6 +210,11 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+      - name: Upload Docker image tar
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image-cuda-${{ env.PLATFORM_PAIR }}
+          path: ./image-${{ env.PLATFORM_PAIR }}.tar
   # build-ollama-image:
   #   runs-on: ${{ matrix.platform == 'linux/arm64' && 'ubuntu-24.04-arm' || 'ubuntu-latest' }}
   #   permissions:
@@ -419,6 +424,8 @@ jobs:
       - name: Inspect image
         run: |
           docker buildx imagetools inspect ${{ env.FULL_IMAGE_NAME }}:${{ steps.meta.outputs.version }}
+
+
 
   # merge-ollama-images:
   #   runs-on: ubuntu-latest
