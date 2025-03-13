@@ -197,12 +197,15 @@ jobs:
             BUILD_HASH=${{ github.sha }}
             USE_CUDA=true
 
+      - name: Verify Docker image
+        run: docker images ${{ env.FULL_IMAGE_NAME }}
+
       - name: Create directory for tar files
         run: mkdir -p /tmp/digests/
 
       - name: Save Docker image to tar file
         run: |
-          docker save -o /tmp/digests/${{ env.SAFE_IMAGE_NAME }}-${{ steps.meta.outputs.version }}.tar ${{ env.FULL_IMAGE_NAME }}
+          docker save -o /tmp/digests/${{ env.SAFE_IMAGE_NAME }}-${{ steps.meta.outputs.version }}.tar ${{ env.FULL_IMAGE_NAME }}:${{ steps.meta.outputs.version }}
 
       - name: Upload tar file
         uses: actions/upload-artifact@v4
