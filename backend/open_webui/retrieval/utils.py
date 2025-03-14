@@ -65,6 +65,7 @@ class VectorSearchRetriever(BaseRetriever):
                     page_content=documents[idx],
                 )
             )
+        log.debug(f"_get_relevant_documents,results:{results}")
         return results
 
 
@@ -109,6 +110,7 @@ def query_doc_with_hybrid_search(
     r: float,
 ) -> dict:
     try:
+        log.debug(f"query_doc_with_hybrid_search,collection_name:{collection_name},query:{query}")
         result = VECTOR_DB_CLIENT.get(collection_name=collection_name)
 
         bm25_retriever = BM25Retriever.from_texts(
