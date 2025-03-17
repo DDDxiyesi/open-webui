@@ -205,7 +205,7 @@ def merge_and_sort_query_results(
     sorted_distances, sorted_documents, sorted_metadatas = (
         zip(*combined[:k]) if combined else ([], [], [])
     )
-
+    log.debug(f"merge_and_sort_query_results length: {len(sorted_distances)}")
     # Create and return the output dictionary
     return {
         "distances": [list(sorted_distances)],
